@@ -2,9 +2,5 @@ server:
   port: ${APP_PORT}
 
 db:
-  host: db
-  port: ${DB_PORT}
-  user: ${DB_USER}
-  pass: ${DB_PASSWORD}
-  name: ${DB_NAME}
+  url: ${LOCAL_DB_URL}
   migration: true
