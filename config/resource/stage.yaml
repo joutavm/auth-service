@@ -1,3 +1,7 @@
+server:
+  port: ${APP_PORT}
+
+
 db:
   url: ${DATABASE_URL}
   migration: true
