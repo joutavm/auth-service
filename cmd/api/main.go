@@ -1,11 +1,12 @@
 package main
 
 import (
-	"go.uber.org/fx"
 	"auth-service/config"
 	"auth-service/database"
 	"auth-service/product"
 	"auth-service/server"
+	"auth-service/user"
+	"go.uber.org/fx"
 )
 
 func main() {
@@ -14,5 +15,6 @@ func main() {
 		database.Module,
 		server.Module,
 		product.Module,
+		user.Module,
 	).Run()
 }
