@@ -18,7 +18,7 @@ func (userHandler UserHandler) PostUser(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	response, err := userHandler.userProvider.CreateProduct(userRequest)
+	response, err := userHandler.userProvider.CreateProduct(&userRequest)
 
 	if err != nil {
 		log.Println("Failed to save item", err)

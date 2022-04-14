@@ -11,12 +11,14 @@ type UserProvider struct {
 	db      *gorm.DB
 }
 
-func (userProvider UserProvider) CreateProduct(userRequest model.User) (*model.User, error) {
-	userRequest.Password = userProvider.encrypt.SHA256Encoder(userRequest.Password)
-	tx := userProvider.db.Save(&userRequest)
-	return &userRequest, tx.Error
+func Init(db *gorm.DB, encryptService *service.EncryptService) *UserProvider {
+	return &UserProvider{
+		db:      db,
+		encrypt: encryptService}
 }
 
-func Init(db *gorm.DB) *UserProvider {
-	return &UserProvider{db: db}
+func (userProvider UserProvider) CreateProduct(userRequest *model.User) (*model.User, error) {
+	userRequest.Password = userProvider.encrypt.SHA256Encoder(userRequest.Password)
+	tx := userProvider.db.Create(&userRequest)
+	return userRequest, tx.Error
 }
