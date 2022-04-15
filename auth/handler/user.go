@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"auth-service/user/model"
-	"auth-service/user/provider"
+	"auth-service/auth/model"
+	"auth-service/auth/provider"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -29,7 +29,7 @@ func (userHandler UserHandler) PostUser(context *gin.Context) {
 	context.JSON(http.StatusCreated, response)
 }
 
-func Init(userProvider *provider.UserProvider) *UserHandler {
+func InitUserHandler(userProvider *provider.UserProvider) *UserHandler {
 	return &UserHandler{
 		userProvider: userProvider,
 	}

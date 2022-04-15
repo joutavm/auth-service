@@ -1,7 +1,7 @@
 package migrate
 
 import (
-	"auth-service/user/model"
+	"auth-service/auth/model"
 	"github.com/spf13/viper"
 	"gorm.io/gorm"
 	"log"

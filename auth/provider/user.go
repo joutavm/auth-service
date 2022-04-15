@@ -1,8 +1,8 @@
 package provider
 
 import (
-	"auth-service/user/model"
-	"auth-service/user/service"
+	"auth-service/auth/model"
+	"auth-service/auth/service"
 	"gorm.io/gorm"
 )
 
@@ -21,4 +21,10 @@ func (userProvider UserProvider) CreateProduct(userRequest *model.User) (*model.
 	userRequest.Password = userProvider.encrypt.SHA256Encoder(userRequest.Password)
 	tx := userProvider.db.Create(&userRequest)
 	return userRequest, tx.Error
+}
+
+func (userProvider UserProvider) GetUserByEmail(email string) (*model.User, error) {
+	var user model.User
+	tx := userProvider.db.Where("email = ?", email).First(&user)
+	return &user, tx.Error
 }
