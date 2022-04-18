@@ -4,7 +4,6 @@ import (
 	"auth-service/auth"
 	"auth-service/config"
 	"auth-service/database"
-	"auth-service/product"
 	"auth-service/server"
 	"go.uber.org/fx"
 )
@@ -14,7 +13,6 @@ func main() {
 		config.Module,
 		database.Module,
 		server.Module,
-		product.Module,
 		auth.Module,
 	).Run()
 }

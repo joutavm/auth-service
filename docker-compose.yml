@@ -9,7 +9,8 @@ services:
     ports:
       - "${DB_PORT}:5432"
   app:
-    image: app:latest
+    build:
+      context: .
     env_file:
       .env
     depends_on:
