@@ -17,5 +17,5 @@ RUN npm install -g nodemon
 RUN ["go", "mod", "tidy"]
 RUN ["go", "mod", "download"]
 
-ENTRYPOINT nodemon --watch './**/*.go' --signal SIGTERM --exec 'go' run ./cmd/api/main.go
+ENTRYPOINT nodemon --legacy-watch --signal SIGTERM --exec 'go' run ./cmd/api/main.go
 
