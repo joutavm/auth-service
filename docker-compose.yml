@@ -7,9 +7,10 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     ports:
-      - "5433:${DB_PORT}"
+      - "${DB_PORT}:5432"
   app:
-    image: app:latest
+    build:
+      context: .
     env_file:
       .env
     depends_on:

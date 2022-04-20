@@ -2,9 +2,10 @@ server:
   port: ${APP_PORT}
 
 db:
-  host: db
-  port: ${DB_PORT}
-  user: ${DB_USER}
-  pass: ${DB_PASSWORD}
-  name: ${DB_NAME}
+  url: ${DB_URL}
   migration: true
+
+jwt:
+  secret: ${JWT_SECRET}
+  issure: auth-service
+  expiration_time_minutes: 60
