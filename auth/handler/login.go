@@ -4,6 +4,7 @@ import (
 	"auth-service/auth/provider"
 	"auth-service/auth/request"
 	"auth-service/auth/service"
+	"auth-service/response"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -31,24 +32,25 @@ func (h *LoginHandler) Login(c *gin.Context) {
 	var login request.Login
 
 	if err := c.ShouldBindJSON(&login); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, response.BuildError(err.Error(), http.StatusBadRequest))
 		return
 	}
 
 	user, err := h.userProvider.GetUserByEmail(login.Email)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("User with email %s not found", login.Email)})
+		c.JSON(http.StatusBadRequest,
+			response.BuildError(fmt.Sprintf("User with email %s not found", login.Email), http.StatusBadRequest))
 		return
 	}
 
 	if user.Password != h.encrypt.SHA256Encoder(login.Password) {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid password"})
+		c.JSON(http.StatusUnauthorized, response.BuildError("Wrong password", http.StatusUnauthorized))
 		return
 	}
 
 	token, err := h.jwtService.CreateToken(user.ID)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Fail to create token"})
+		c.JSON(http.StatusInternalServerError, response.BuildInternalError())
 		return
 	}
 
